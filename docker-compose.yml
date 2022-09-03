@@ -1,0 +1,44 @@
+services:
+  php:
+    networks:
+      - back
+    build:
+      context: .
+      dockerfile: Dockerfile.php.dev
+    volumes:
+      - ./src:/app
+    env_file:
+      - .env.eval
+    
+  nginx:
+    networks:
+     - back
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx.dev
+    ports:
+      - 8082:80
+    volumes:
+      - ./src:/app
+    env_file:
+      - .env.eval
+    
+  
+  mysql:
+    image: mysql:8
+    networks:
+      - back
+    ports:
+      - 3318:3306
+    volumes:
+      - mysql_vol:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=laravel
+    
+networks:
+  back:
+    driver: bridge
+
+volumes:
+  mysql_vol:
