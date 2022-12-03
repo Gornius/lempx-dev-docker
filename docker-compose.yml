@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: Dockerfile.nginx.dev
     ports:
-      - 8082:80
+      - 8083:80
     volumes:
       - ./src:/app
     env_file:
@@ -29,7 +29,7 @@ services:
     networks:
       - back
     ports:
-      - 3318:3306
+      - 3319:3306
     volumes:
       - mysql_vol:/var/lib/mysql
     environment:
